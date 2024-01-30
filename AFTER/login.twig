@@ -1,0 +1,155 @@
+{#
+/**
+ * Copyright (C) 20222-2023 Digisign Play by InnoGRAPH
+ * https://digisignplay.com
+ *
+ */
+#}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>{{ theme.getThemeConfig("theme_title") }}</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="token" content="{{ csrfToken }}"/>
+    <meta name="public-path" content="{{ theme.rootUri() }}"/>
+    <link rel="shortcut icon" href="{{ theme.uri("img/favicon.ico") }}" />
+
+    <link rel="stylesheet" type="text/css" href="{{ theme.uri("login/bootstrap.min.css") }}?v={{ version }}&rev={{revision}}">
+    <link rel="stylesheet" type="text/css" href="{{ theme.uri("login/fontawesome-all.min.css") }}?v={{ version }}&rev={{revision}}">
+    <link rel="stylesheet" type="text/css" href="{{ theme.uri("login/style.css") }}?v={{ version }}&rev={{revision}}">
+    <link rel="stylesheet" type="text/css" href="{{ theme.uri("login/login.css") }}?v={{ version }}&rev={{revision}}">
+</head>
+<body>
+
+    <style type="text/css">
+        p.ibtext  {
+            font-size: 10px;
+            margin: 10px 0px;
+        }
+        .ibtext a {
+            color: #fff;
+        }
+    </style>
+
+    <div class="form-body" class="container-fluid">
+        <div class="website-logo">
+            <a href="{{ uri }}">
+                <div class="logo">
+                    <img class="logo-size" src="{{ theme.uri("img/xibologo.png") }}" alt="">
+                </div>
+            </a>
+        </div>
+        <div class="row">
+            <div class="img-holder">
+                <div class="bg"></div>
+                <div class="info-holder">
+                </div>
+            </div>
+            <div class="form-holder">
+                <div class="form-content">
+                    <div class="form-items">
+                        <h3>Get more things done with digisignPlay platform.</h3>
+                        <p class="mb-2">Access to the most powerfull tool in the entire digital signage.</p>
+                        <p style="font-size: 12px">Supported environment <span class="ityped"></span></p>
+                        <div class="page-links">
+                            <a href="" class="active">Login</a>
+                        </div>
+
+                        {% if authCASEnabled %}
+                        <form id="cas-login-form" class="form-signin text-center" action="{{ url_for("cas.login") }}" method="post">
+                            {% for priorRoute in flash('priorRoute') %}
+                                <input name="priorRoute" type="hidden" value="{{ priorRoute }}" />
+                            {% endfor %}
+                            <p><img class="login-logo" src=""></p>
+                
+                            <p>{% trans  %}Connect with the Central Authentication Server{% endtrans %}</p>
+                
+                            {% for loginMessage in flash('cas_login_message') %}
+                                <div class="alert alert-danger">{{ loginMessage }}</div>
+                            {% endfor %}
+                
+                            <p><button class="ibtn" type="submit" name="logincas">{% trans %} CAS Login{% endtrans %}</button></p>
+                        </form>
+                        {% else %}
+                        <form id="login-form" class="form-signin form-horizontal" action="{{ url_for("login") }}" method="post">
+                            {% for priorRoute in flash('priorRoute') %}
+                                <input name="priorRoute" type="hidden" value="{{ priorRoute }}" />
+                            {% endfor %}
+
+                            {% for loginMessage in flash('login_message') %}
+                                <div class="alert alert-danger">{{ loginMessage }}</div>
+                            {% endfor %}
+
+                            <input type="hidden" name="{{ csrfKey }}" value="{{ csrfToken }}" />
+
+                            <input class="form-control"  id="username" name="username" type="text" placeholder="{% trans "User" %}" autofocus autocomplete="username">
+                            <input class="form-control"  id="password" name="password" type="password" placeholder="{% trans "Password" %}" autocomplete="current-password" aria-label="Password" aria-describedby="password-addon">
+                            <div class="form-button">
+                                <button id="submit" type="submit" class="ibtn">{% trans "Login" %}</button>
+                            </div>
+                       
+                            {% if passwordReminderEnabled %}<p><a href="#" id="reminder-form-toggle">{% trans "Forgotten your password?" %}</a></p>{% endif %}
+                        </form>
+                        {% endif %}
+                
+                        {% if passwordReminderEnabled %}
+                        <form id="reminder-form" class="form-signin text-center d-none" action="{{ url_for("login.forgotten") }}" method="post">
+                            <input type="hidden" name="{{ csrfKey }}" value="{{ csrfToken }}" />
+                            <p><a href="{{ theme.getThemeConfig("theme_url") }}"><img class="login-logo" src="{{ theme.uri("img/xibologo.png") }}"></a></p>
+                
+                            <p>{% trans "Please provide your user name" %}</p>
+                            <input id="username" class="form-control input-block-level" name="username" type="text" placeholder="{% trans "User" %}">
+                
+                            {% for loginMessage in flash('login_message') %}
+                                <div class="alert alert-danger">{{ loginMessage }}</div>
+                            {% endfor %}
+                
+                            <p><button class="ibtn" type="submit">{% trans "Send Reset" %}</button></p>
+                
+                            <p><a href="#" id="login-form-toggle">{% trans "Login instead?" %}</a></p>
+                        </form>
+                        {% endif %}
+
+                        <p class="ibtext">{% trans %}Version {{version}}{% endtrans %}
+                            | <a id="source-link" href="{{ theme.getThemeConfig("cms_source_url") }}">{% trans "Source" %}</a>
+                            | <a id="about-link" class="XiboFormButton" href="{{ url_for("about") }}" title="{% trans "About" %}">{% trans "About" %}</a>
+                            <p style="font-size: 13px;"> Don't have an account? <br>Please contact <b>admin@digisignplay.com</b></br></p>
+                        </p>      
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+        <script src="{{ theme.rootUri() }}dist/vendor.bundle.min.js?v={{ version }}&rev={{revision}}"></script>
+        <script src="https://unpkg.com/ityped@0.0.10"></script>
+        <script>
+            window.ityped.init(document.querySelector('.ityped'),{
+            strings: ['Windows ','Linux ','webOS ','Android ','Tizen '],
+            loop: true, typeSpeed:  150, backSpeed:  70
+            })
+        </script>
+        <script type="text/javascript">
+            $(function() {
+                $("#reminder-form-toggle").on("click", function (e) {
+                    e.preventDefault();
+
+                    $("#login-form").addClass("d-none");
+                    $("#reminder-form").removeClass("d-none");
+                });
+
+                $("#login-form-toggle").on("click", function (e) {
+                    e.preventDefault();
+
+                    $("#login-form").removeClass("d-none");
+                    $("#reminder-form").addClass("d-none");
+                });
+            });
+        </script>
+    </body>
+
+</html>
+
