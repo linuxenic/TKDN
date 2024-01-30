@@ -1,0 +1,530 @@
+{#
+/**
+ * Copyright (C) 20222-2023 Digisign Play by InnoGRAPH
+ * https://digisignplay.com
+ *
+ */
+#}
+
+{% extends "non-authed.twig" %}
+
+{% block title %}{{ "About"|trans }} | {% endblock %}
+
+{% block style %}
+<style type="text/css">
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
+
+body {
+  font-family: 'Poppins', sans-serif;
+  color: #444444;
+}
+
+a {
+  color: #2487ce;
+  text-decoration: none;
+}
+
+a:hover {
+  color: #469fdf;
+  text-decoration: none;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: 'Poppins', sans-serif;
+}
+
+#preloader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 9999;
+  overflow: hidden;
+  background: #fff;
+}
+
+#preloader:before {
+  content: "";
+  position: fixed;
+  top: calc(50% - 30px);
+  left: calc(50% - 30px);
+  border: 6px solid #2487ce;
+  border-top-color: #fff;
+  border-bottom-color: #fff;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  -webkit-animation: animate-preloader 1s linear infinite;
+  animation: animate-preloader 1s linear infinite;
+}
+
+@-webkit-keyframes animate-preloader {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes animate-preloader {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@media screen and (max-width: 768px) {
+  [data-aos-delay] {
+    transition-delay: 0 !important;
+  }
+}
+
+#hero {
+  width: 100%;
+  position: relative;
+  background-color:#7cf8f0;
+  background-size: cover;
+  position: relative;
+}
+
+#hero:before {
+  content: "";
+  background: #151820;
+  position: absolute;
+  bottom: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+
+#hero h1 {
+  margin: 0;
+  font-size: 56px;
+  font-weight: 700;
+  line-height: 72px;
+  color: #ffffff;
+  font-family: "Poppins", sans-serif;
+}
+
+#hero h2 {
+  color: #5e5e5e;
+  margin: 10px 0 0 0;
+  font-size: 20px;
+}
+
+#hero .btn-get-started {
+  font-family: "Poppins", sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  letter-spacing: 0.5px;
+  display: inline-block;
+  padding: 14px 50px;
+  border-radius: 5px;
+  transition: 0.5s;
+  margin-top: 30px;
+  color: #fff;
+  background: #3262a8;
+}
+
+#hero .btn-get-started:hover {
+  background: #3262a8;
+}
+
+#hero .icon-boxes {
+  margin-top: 100px;
+}
+
+#hero .icon-box {
+  padding: 50px 30px;
+  position: relative;
+  overflow: hidden;
+  background: #fff;
+  box-shadow: 0 0 29px 0 rgba(18, 66, 101, 0.08);
+  transition: all 0.3s ease-in-out;
+  border-radius: 8px;
+  z-index: 1;
+}
+
+#hero .icon-box .title {
+  font-weight: 700;
+  margin-bottom: 15px;
+  font-size: 18px;
+}
+
+#hero .icon-box .title a {
+  color: #124265;
+  transition: 0.3s;
+}
+
+#hero .icon-box .description {
+  font-size: 15px;
+  line-height: 28px;
+  margin-bottom: 0;
+}
+
+#hero .icon-box .icon {
+  margin-bottom: 20px;
+  padding-top: 10px;
+  display: inline-block;
+  transition: all 0.3s ease-in-out;
+  font-size: 36px;
+  line-height: 1;
+  color: #2487ce;
+}
+
+#hero .icon-box:hover {
+  transform: scale(1.08);
+}
+
+#hero .icon-box:hover .title a {
+  color: #2487ce;
+}
+
+@media (min-width: 1024px) {
+  #hero {
+    background-attachment: fixed;
+  }
+}
+
+@media (max-height: 800px) {
+  #hero {
+    height: auto;
+  }
+}
+
+@media (max-width: 992px) {
+  #hero {
+    height: auto;
+  }
+
+  #hero h1 {
+    font-size: 28px;
+    line-height: 36px;
+  }
+
+  #hero h2 {
+    font-size: 18px;
+    line-height: 24px;
+  }
+}
+
+section {
+  padding: 60px 0;
+  overflow: hidden;
+}
+
+.section-bg {
+  background-color: #f8fbfe;
+}
+
+.section-title {
+  text-align: center;
+  padding-bottom: 40px;
+  color: #fff;
+}
+
+.section-title h2 {
+  font-size: 32px;
+  font-weight: bold;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+  padding-bottom: 0;
+  color: #fff;
+}
+
+.section-title p {
+  margin-bottom: 0;
+  font-size: 14px;
+  color: #151820;
+}
+
+#about{
+    background: #151820;
+    color: #fff;
+}
+
+.about .content h3 {
+  font-weight: 600;
+  font-size: 26px;
+  color: #fff;
+}
+
+.about .content ul {
+  list-style-type: circle ;
+  padding-left: 30px;
+  color: #fff;
+}
+
+.about .content ul li {
+  padding-left: 10px;
+  position: relative;
+}
+
+.about .content ul li+li {
+  margin-top: 10px;
+}
+
+.about .content ul i {
+  position: absolute;
+  left: 0;
+  top: 2px;
+  font-size: 20px;
+  color: #fff;
+  line-height: 1;
+}
+
+.about .content p:last-child {
+  margin-bottom: 0;
+  color: #fff;
+}
+
+.about .content .btn-learn-more {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  font-size: 14px;
+  letter-spacing: 1px;
+  display: inline-block;
+  padding: 12px 32px;
+  border-radius: 5px;
+  transition: 0.3s;
+  line-height: 1;
+  color: #fff;
+  -webkit-animation-delay: 0.8s;
+  animation-delay: 0.8s;
+  margin-top: 6px;
+  border: 2px solid #fff;
+}
+
+.about .content .btn-learn-more:hover {
+  background: #3262a8;
+  border: 2px solid #3262a8;
+  color: #fff;
+  text-decoration: none;
+}
+
+.clients {
+  padding: 15px 0;
+  text-align: center;
+}
+
+.clients img {
+  max-width: 45%;
+  transition: all 0.4s ease-in-out;
+  display: inline-block;
+  padding: 10px 0;
+  filter: grayscale(100);
+}
+
+.clients img:hover {
+  filter: none;
+  transform: scale(1.3);
+}
+
+@media (max-width: 768px) {
+  .clients img {
+    max-width: 40%;
+  }
+}
+
+#footer {
+  color: #fff;
+  font-size: 10px;
+  background: #151820;
+  box-shadow: 0px 2px 15px rgba(18, 66, 101, 0.08);
+}
+
+#footer .footer-top {
+  padding: 60px 0 30px 0;
+  background: #fff;
+}
+
+#footer .footer-top .footer-contact {
+  margin-bottom: 30px;
+}
+
+#footer .footer-top .footer-contact h3 {
+  font-size: 10px;
+  margin: 0 0 10px 0;
+  padding: 2px 0 2px 0;
+  line-height: 1;
+  font-weight: 300;
+}
+
+#footer .footer-top .footer-contact p {
+  font-size: 10px;
+  line-height: 24px;
+  margin-bottom: 0;
+  font-family: 'Poppins', sans-serif;
+  color: #777777;
+}
+
+#footer .footer-top h4 {
+  font-size: 10px;
+  font-weight: bold;
+  color: #124265;
+  position: relative;
+  padding-bottom: 12px;
+}
+
+#footer .footer-top .footer-links {
+  margin-bottom: 30px;
+}
+
+#footer .footer-top .footer-links ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+#footer .footer-top .footer-links ul i {
+  padding-right: 2px;
+  color: #2487ce;
+  font-size: 18px;
+  line-height: 1;
+}
+
+#footer .footer-top .footer-links ul li {
+  padding: 10px 0;
+  display: flex;
+  align-items: center;
+}
+
+#footer .footer-top .footer-links ul li:first-child {
+  padding-top: 0;
+}
+
+#footer .footer-top .footer-links ul a {
+  color: #777777;
+  transition: 0.3s;
+  display: inline-block;
+  line-height: 1;
+}
+
+#footer .footer-top .footer-links ul a:hover {
+  text-decoration: none;
+  color: #2487ce;
+}
+
+#footer .credits {
+  padding-top: 10px;
+  font-size: 10px;
+  color: #fff;
+}
+
+</style>
+
+
+
+{% endblock %}
+
+{% block header %}{% endblock %}
+{% block contentClass %}{% endblock %}
+
+{% block content %}
+{# <a class="fa fa-close" aria-hidden="true"> {% trans "close" %}</a> #}
+    <section id="hero" class="d-flex align-items-center">
+    <div class="container position-relative" data-aos="fade-up" data-aos-delay="200">
+      <div class="row justify-content-center">
+        <div class="col-xl-7 col-lg-9 text-center">
+          <img style="max-width: 120px min-width: 80px" src="theme/default/assets/images/digisignplay.png">
+        <div>
+          <br>
+          <br>
+        </div>
+          <h1>digisignPlay - by InnoGRAPH</h1>
+          <h2>we give solution and innovation</h2>
+        </div>
+      </div>
+      <div class="text-center">
+        <a href="{{ url_for("home") }}" class="btn-get-started scrollto">Back to Home</a>
+      </div>
+    </div>
+  </section>
+
+<main id="main">
+
+
+    <section id="about" class="about">
+      <div class="container" data-aos="fade-up" data-aos-delay="400">
+
+        <div class="section-title">
+          <h2>About Us</h2>
+          <p>PT Innovasi Sarana Grafindo InnoGRAPH</p>
+        </div>
+
+        <div class="row content">
+          <div class="col-lg-6">
+            <p>
+              Sejak tahun <strong>2009</strong>, InnoGRAPH mulai merambah bisnis digital signage. Inovasi adalah passion kami untuk menghadirkan produk-produk digital signage yang menerapkan teknologi terkini semacam :
+            </p>
+            <ul>
+              <li><i class="ri-check-double-line"></i> Cloud Content Management System</li>
+              <li><i class="ri-check-double-line"></i> Digisign Digital Signage</li>
+              <li><i class="ri-check-double-line"></i> Interactive Flat Panel, dll</li>
+            </ul>
+          </div>
+          <div class="col-lg-6 pt-4 pt-lg-0">
+            <p>
+              <strong>InnoGRAPH</strong> 
+              siap dan tertantang untuk hadir sebagai perusahaan yang terdepan dalam hal inovasi melalui eksplorasi teknologi yang terus berubah.
+            </p>
+            <p>
+            <strong>the InnoGRAPH Dev & UI/UX Dev</strong> - Rio, Ibnu & Vicky<br>
+            <strong>digisignPlay Analyst</strong> - Fery Yadi & Subchan  <br> 
+            <strong>digisignPlay Specialist</strong> - Benny, Faizal, Latief & Wahyu
+            </p>
+            <a href="https://www.innograph.com/" class="btn-learn-more">Learn More</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="clients" class="clients section-bg">
+      <div class="section-title">
+        <p><strong>Our Brand</strong></p>
+      </div>
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-4 col-md-4 col-12 d-flex align-items-center justify-content-center" data-aos="zoom-in">
+            <img src="theme/default/assets/images/1.png" class="img-fluid" alt="">
+          </div>
+
+          <div class="col-lg-4 col-md-4 col-12 d-flex align-items-center justify-content-center" data-aos="zoom-in">
+            <img src="theme/default/assets/images/2.png" class="img-fluid" alt="">
+          </div>
+
+          <div class="col-lg-4 col-md-4 col-12 d-flex align-items-center justify-content-center" data-aos="zoom-in">
+            <img src="theme/default/assets/images/3.png" class="img-fluid" alt="">
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  <footer id="footer">
+    <div class="container d-md-flex py-4">
+      <div class="me-md-auto text-md-start">
+        <div class="copyright">
+          Copyright <strong><span> &copy; 2022-2023</span></strong>. PT Innovasi Sarana Grafindo
+        </div>
+        <div class="credits">
+          Developed by <a href="">
+          <br>digisignPlay Developer - Rio Saroha Simamora</br>
+          <p>UI/UX Developer - Yosia Ibnu Loka, Vicky Varianda Excel</p></a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+{% endblock %}
